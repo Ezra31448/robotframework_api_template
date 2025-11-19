@@ -1,4 +1,4 @@
-TC_0001_Complete_A_Purchase_Flow_For_A_Standard User:
+TC_0001:
   url: "https://www.saucedemo.com/"
   browser: "chrome"
   valid_user: "standard_user"
