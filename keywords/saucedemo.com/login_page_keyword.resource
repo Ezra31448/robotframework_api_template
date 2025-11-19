@@ -22,5 +22,6 @@ Login With Credentials
 Logout
     Click Button    id=react-burger-menu-btn
     Wait Until Element Is Visible    id=logout_sidebar_link
+    Sleep    1s
     Click Element    id=logout_sidebar_link
     Wait Until Page Contains Element    id=user-name
