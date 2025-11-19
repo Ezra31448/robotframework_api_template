@@ -1,0 +1,9 @@
+TC_0001_Complete_A_Purchase_Flow_For_A_Standard User:
+  url: "https://www.saucedemo.com/"
+  browser: "chrome"
+  valid_user: "standard_user"
+  valid_password: "secret_sauce"
+  product_name: "Sauce Labs Backpack"
+  first_name: "Test"
+  last_name: "User"
+  postal_code: "10270"

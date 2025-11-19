@@ -1,0 +1,7 @@
+list_of_all_objects_path: /objects
+list_of_objects_by_ids_path: /objects
+single_object_path: /objects
+add_object_path: /objects
+update_object_path: /objects
+partially_update_object_path: /objects
+delete_object_path: /objects

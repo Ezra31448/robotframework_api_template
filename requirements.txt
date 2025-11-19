@@ -1,0 +1,6 @@
+robotframework
+robotframework-requests
+robotframework-databaselibrary
+robotframework-seleniumlibrary
+
+PyYAML==6.0

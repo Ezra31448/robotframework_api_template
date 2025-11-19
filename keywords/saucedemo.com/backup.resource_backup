@@ -1,0 +1,60 @@
+*** Settings ***
+Documentation     A test suite for a complete purchase flow on SauceDemo.
+...               This test logs in, adds an item to the cart, and checks out.
+Library           SeleniumLibrary
+Library           ${CURDIR}/../../scripts/browser_options.py
+
+*** Keywords ***
+Open Browser And Navigate To Login Page
+    [Arguments]    ${url}    ${browser}
+    ${options}=    Get Chrome Options
+    Open Browser    ${URL}    ${BROWSER}    options=${options}
+    Maximize Browser Window
+    Wait Until Page Contains Element    id=user-name
+
+Login With Credentials
+    [Arguments]    ${username}    ${password}
+    Input Text    id=user-name    ${username}
+    Input Password    id=password    ${password}
+    Click Button    id=login-button
+    Wait Until Page Contains    Products
+
+Add Product To Cart
+    [Arguments]    ${product}
+    # Finds the "Add to cart" button associated with the specific product name.
+    ${add_to_cart_button_locator}=    Set Variable    //div[text()='${product}']/ancestor::div[@class='inventory_item']//button
+    Click Element    ${add_to_cart_button_locator}
+    # Wait for the button text to change to "Remove" to ensure the item was added.
+    Wait Until Element Contains    ${add_to_cart_button_locator}    Remove
+
+Go To Shopping Cart
+    Click Element    id=shopping_cart_container
+    Wait Until Page Contains    Your Cart
+
+Verify Product In Cart
+    [Arguments]    ${product}
+    Page Should Contain    ${product}
+
+Proceed To Checkout
+    Click Button    id=checkout
+    Wait Until Page Contains    Checkout: Your Information
+
+Fill Out Checkout Information
+    Input Text    id=first-name    ${FIRST_NAME}
+    Input Text    id=last-name    ${LAST_NAME}
+    Input Text    id=postal-code    ${POSTAL_CODE}
+    Click Button    id=continue
+
+Finish Purchase
+    Wait Until Page Contains    Checkout: Overview
+    Click Button    id=finish
+
+Verify Purchase Confirmation
+    Wait Until Page Contains Element    class=complete-header
+    Element Text Should Be    class=complete-header    Thank you for your order!
+
+Logout
+    Click Button    id=react-burger-menu-btn
+    Wait Until Element Is Visible    id=logout_sidebar_link
+    Click Element    id=logout_sidebar_link
+    Wait Until Page Contains Element    id=user-name
